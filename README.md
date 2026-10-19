@@ -23,12 +23,16 @@ which is **10 units** on a U-100 syringe.
 
 ## Install
 
-Copy `src/index.js` into your project. It works in Node.js (CommonJS) and in the browser (global `PeptideReconstitution`).
+```
+npm install peptide-reconstitution-calculator
+```
+
+Or copy `src/index.js` into your project. It works in Node.js (CommonJS) and in the browser (global `PeptideReconstitution`).
 
 ## Use
 
 ```js
-const { reconstitute, suggestWater, unitsToMl } = require('./src/index.js');
+const { reconstitute, suggestWater, unitsToMl } = require('peptide-reconstitution-calculator');
 
 reconstitute({ vialMg: 5, waterMl: 2, amountMcg: 250 });
 // { concentrationMgPerMl: 2.5, volumeMl: 0.1, units: 10, unitsExact: 10,
