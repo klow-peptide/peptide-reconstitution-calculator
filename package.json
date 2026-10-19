@@ -3,12 +3,28 @@
   "version": "1.0.0",
   "description": "Peptide reconstitution math: concentration, draw volume and insulin syringe units. No dependencies.",
   "main": "src/index.js",
-  "files": ["src"],
-  "scripts": { "test": "node --test test/*.test.js" },
-  "keywords": ["peptide", "reconstitution", "calculator", "bacteriostatic water", "insulin syringe", "units"],
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [
+    "peptide",
+    "reconstitution",
+    "calculator",
+    "bacteriostatic water",
+    "insulin syringe",
+    "units"
+  ],
   "homepage": "https://klow-peptide.com/en/pages/peptide-calculator/",
-  "repository": { "type": "git", "url": "https://github.com/klow-peptide/peptide-reconstitution-calculator.git" },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/klow-peptide/peptide-reconstitution-calculator.git"
+  },
   "author": "Klow Peptide (https://klow-peptide.com)",
   "license": "MIT",
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=18"
+  }
 }
