@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Reconstitution example</title></head>
+<body>
+<script src="../src/index.js"></script>
+<script>
+  var r = PeptideReconstitution.reconstitute({ vialMg: 5, waterMl: 2, amountMcg: 250 });
+  document.body.textContent = r.concentrationMgPerMl + ' mg/mL, ' + r.volumeMl.toFixed(2) + ' mL, ' + r.units + ' units (U-100)';
+</script>
+</body>
+</html>
