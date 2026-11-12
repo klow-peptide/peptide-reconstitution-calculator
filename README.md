@@ -5,7 +5,8 @@ You give it the vial amount, the volume of bacteriostatic water and the amount t
 It returns the concentration, the draw volume and the units on an insulin syringe.
 
 It uses the same formulas as the calculators on [klow-peptide.com](https://klow-peptide.com/en/pages/peptide-calculator/).
-A test in this repo checks that both give identical results.
+A test in this repo checks that both give identical results. That comparison repeats the same formulas, so it is not an independent check.
+Published sources and an exact integer cross-check are written up in [VALIDATION.md](VALIDATION.md).
 
 > **Educational tool only. Not medical advice.** This library converts units. It does not recommend any amount.
 
@@ -36,7 +37,7 @@ const { reconstitute, suggestWater, unitsToMl } = require('peptide-reconstitutio
 
 reconstitute({ vialMg: 5, waterMl: 2, amountMcg: 250 });
 // { concentrationMgPerMl: 2.5, volumeMl: 0.1, units: 10, unitsExact: 10,
-//   drawsPerVial: 20, syringe: 'U-100' }
+//   drawsPerVial: 20, syringe: 'U-100', warnings: [] }
 
 reconstitute({ vialMg: 5, waterMl: 2, amountMcg: 250, syringe: 'U-40' }).unitsExact; // 4
 
@@ -50,13 +51,42 @@ Browser: see `examples/browser.html`.
 
 | Function | Returns |
 |---|---|
-| `reconstitute({ vialMg, waterMl, amountMcg, syringe })` | concentration, volume, rounded and exact units, draws per vial |
+| `reconstitute({ vialMg, waterMl, amountMcg, syringe })` | concentration, volume, rounded and exact units, draws per vial, warnings |
 | `concentration(vialMg, waterMl)` | mg/mL |
 | `unitsToMl(units, syringe)` | mL |
 | `suggestWater({ vialMg, amountMcg })` | a water volume from 1 to 2.5 mL that gives 2 to 100 units, close to 20, or `null` |
 | `mgToMcg`, `mcgToMg` | unit conversion |
+| `MAX_SYRINGE_ML` | `1`, the largest common insulin syringe, in mL |
 
 `syringe` is `'U-100'` (default, 100 units per mL) or `'U-40'`. Invalid input throws a `RangeError`.
+
+## Units, ranges and limits
+
+Educational tool only. Not medical advice. This library does not provide dosing guidance.
+
+| Name | Unit |
+|---|---|
+| `vialMg` | milligrams in the vial |
+| `waterMl` | milliliters of diluent, or the labeled final volume |
+| `amountMcg` | micrograms to draw |
+| `concentrationMgPerMl` | milligrams per milliliter |
+| `volumeMl` | milliliters to draw |
+| `units`, `unitsExact` | marks on the selected syringe |
+| `drawsPerVial` | whole draws of `amountMcg` that fit in the vial |
+| `warnings` | limit codes listed below |
+
+Accepted values: `vialMg`, `waterMl`, `amountMcg`, and `units` must be finite and greater than 0. Any other value throws a `RangeError`.
+
+Powder displacement volume, purity, overfill, and syringe dead space are ignored. When a label states the final volume, pass that final volume as `waterMl`.
+
+`reconstitute()` returns these warnings:
+
+| Warning | When it is included |
+|---|---|
+| `amount_exceeds_vial` | `drawsPerVial` is 0, because the amount is larger than the vial |
+| `volume_above_1_ml` | `volumeMl` is greater than 1 mL (`MAX_SYRINGE_ML`), so the draw needs more than one common insulin syringe |
+| `below_1_unit` | `unitsExact` is less than 1 |
+| `rounding_error_above_5_percent` | `unitsExact` is at least 1, and the rounded `units` differ from `unitsExact` by more than 5 percent |
 
 ## Embed the calculator on your site
 
@@ -102,6 +132,8 @@ Peptide-specific versions (replace the `src` of the iframe):
 ```
 npm test
 ```
+
+`test/index.test.js` compares this library with the website formulas. `test/validation.test.js` checks the published references and the exact integer cross-check in [VALIDATION.md](VALIDATION.md).
 
 ## License
 

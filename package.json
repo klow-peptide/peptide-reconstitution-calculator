@@ -1,6 +1,6 @@
 {
   "name": "peptide-reconstitution-calculator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Peptide reconstitution math: concentration, draw volume and insulin syringe units. No dependencies.",
   "main": "src/index.js",
   "files": [
