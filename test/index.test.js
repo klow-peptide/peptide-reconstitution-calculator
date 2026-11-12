@@ -10,10 +10,15 @@ function site(p, w, d) {
 
 test('worked example: 5 mg + 2 mL, 250 mcg', () => {
   const r = calc.reconstitute({ vialMg: 5, waterMl: 2, amountMcg: 250 });
-  assert.equal(r.concentrationMgPerMl, 2.5);
-  assert.ok(Math.abs(r.volumeMl - 0.1) < 1e-12);
-  assert.equal(r.units, 10);
-  assert.equal(r.drawsPerVial, 20);
+  assert.deepEqual(r, {
+    concentrationMgPerMl: 2.5,
+    volumeMl: 0.1,
+    units: 10,
+    unitsExact: 10,
+    drawsPerVial: 20,
+    syringe: 'U-100',
+    warnings: []
+  });
 });
 
 test('same results as the website for a grid of inputs', () => {
