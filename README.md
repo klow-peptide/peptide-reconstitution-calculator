@@ -135,6 +135,10 @@ npm test
 
 `test/index.test.js` compares this library with the website formulas. `test/validation.test.js` checks the published references and the exact integer cross-check in [VALIDATION.md](VALIDATION.md).
 
+## Security and privacy
+
+See [SECURITY.md](SECURITY.md). The library does local arithmetic only: no network, no telemetry.
+
 ## License
 
 MIT. Maintained by [Klow Peptide](https://klow-peptide.com).
